@@ -4,6 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>JS Paint</title>
+	<!-- Base path for GitHub Pages subdirectory deployment -->
+	<!-- <base href="/paint/"> -->
 
 	<!-- This should mirror CSP in electron-main.js, except maybe for firebase stuff. -->
 	<!-- Firebase stuff is somewhat speculative, as the quota is exceeded as I'm adding this. -->
@@ -64,14 +66,12 @@
 	<meta property="og:image:height" content="279">
 	<meta property="og:description" content="Classic MS Paint in the browser, with extra features.">
 	<meta property="og:title" content="JS Paint">
-	<meta property="og:url" content="https://jspaint.app">
-	<meta property="og:image" content="https://jspaint.app/images/icons/og-image-279x279.jpg">
+	<meta property="og:url" content="https://mr901.co.in/tools/paint">
+	<meta property="og:image" content="https://mr901.co.in/tools/paint/images/icons/og-image-279x279.jpg">
 	<meta name="twitter:title" content="JS Paint">
 	<meta name="twitter:description" content="Classic MS Paint in the browser, with extra features">
-	<meta name="twitter:image" content="https://jspaint.app/images/meta/twitter-card-plz-no-crop.png">
+	<meta name="twitter:image" content="https://mr901.co.in/tools/paint/images/meta/twitter-card-plz-no-crop.png">
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="@isaiahodhner">
-	<meta name="twitter:creator" content="@isaiahodhner">
 
 	<script src="src/error-handling-basic.js"></script>
 	<script type="module" src="src/theme.js"></script>
@@ -86,33 +86,7 @@
 				<div id="jspaint-version" title="About time to increment the version number, don't you think?">
 					Version 1.0.0+
 				</div>
-				<div id="jspaint-update-status-area" hidden>
-					<!-- perhaps this can be merged with the container now that it's the only child -->
-					<div id="maybe-outdated-line">
-						<div id="outdated" hidden>
-							<div class="on-official-host">
-								There's a new version of JS&nbsp;Paint.
-								<a id="refresh-to-update" href=".">Refresh</a> to get it.
-							</div>
-							<div class="on-third-party-host">
-								This instance of JS&nbsp;Paint is outdated compared to
-								<a href="https://jspaint.app" target="_blank">jspaint.app</a>.
-							</div>
-							<div class="on-dev-host">
-								This version of JS&nbsp;Paint is outdated compared to
-								<a href="https://jspaint.app" target="_blank">jspaint.app</a>.
-							</div>
-						</div>
-						<div id="checking-for-updates" hidden>
-							Checking for updates...
-						</div>
-						<div id="failed-to-check-if-outdated" hidden>
-							Couldn't check for updates.
-							<span class="navigator-offline">You're offline.</span>
-							<span class="navigator-online">JS&nbsp;Paint may be outdated.</span>
-						</div>
-					</div>
-				</div>
+				<!-- Update checker removed for fork -->
 			</div>
 			<!-- @#: What's New? -->
 			<button id="view-project-news">What's&nbsp;New?</button>
@@ -1439,13 +1413,7 @@
 
 		<p>This application requires JavaScript to run.</p>
 
-		<p>
-			Assuming this is the official instance of jspaint,
-			at <a href="https://jspaint.app">https://jspaint.app</a>,
-			you can safely enable JavaScript.
-		</p>
-
-		<p>You can also check out <a href="https://github.com/1j01/jspaint">the source code and project info</a>.</p>
+		<p>You can check out <a href="https://github.com/MR901/paint">the source code</a> or the <a href="https://github.com/1j01/jspaint">original project</a>.</p>
 	</noscript>
 
 	<svg style="position: absolute; pointer-events: none; bottom: 100%;">

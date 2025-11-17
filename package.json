@@ -67,7 +67,7 @@
     "bmp",
     "bitmap"
   ],
-  "homepage": "https://jspaint.app/about",
+  "homepage": "https://mr901.co.in/tools/paint",
   "author": "Isaiah Odhner <isaiahodhner@gmail.com> (https://isaiahodhner.io)",
   "funding": [
     {
@@ -139,10 +139,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/1j01/jspaint.git"
+    "url": "https://github.com/MR901/paint.git"
   },
   "bugs": {
-    "url": "https://github.com/1j01/jspaint/issues",
+    "url": "https://github.com/MR901/paint/issues",
     "email": "isaiahodhner@gmail.com"
   }
 }
