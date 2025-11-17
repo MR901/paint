@@ -437,11 +437,12 @@ const update_from_url_params = () => {
 	// but I'm not sure how it should work with the back button.
 	// It's probably nice on mobile for the back button to close windows,
 	// but I'd want it to be consistent between all the windows of the app.
-	if (location.hash.match(/force-open-project-news/i)) {
-		if (!$(".news-window:visible").length) {
-			show_news();
-		}
-	}
+	// Project news feature removed in fork
+	// if (location.hash.match(/force-open-project-news/i)) {
+	// 	if (!$(".news-window:visible").length) {
+	// 		show_news();
+	// 	}
+	// }
 };
 update_from_url_params();
 $G.on("hashchange popstate change-url-params", update_from_url_params);
@@ -527,6 +528,8 @@ const $status_size = $(E("div")).addClass("status-coordinates status-field inset
 window.$status_size = $status_size;
 
 // #region News Indicator
+// Project news feature removed in fork
+/*
 const news_seen_key = "jspaint latest news seen";
 const latest_news_datetime = $this_version_news.find("time").attr("datetime");
 const $news_indicator = $(`
@@ -555,7 +558,7 @@ $news_indicator.on("click auxclick", (event) => {
 	$news_indicator.remove();
 	try {
 		localStorage[news_seen_key] = latest_news_datetime;
-	} catch (_error) { /* ignore */ }
+	} catch (_error) { }
 });
 let news_seen;
 let local_storage_unavailable;
@@ -571,7 +574,9 @@ const news_period = local_storage_unavailable ? news_period_if_cannot_dismiss : 
 if (Date.now() < Date.parse(latest_news_datetime) + news_period && news_seen !== latest_news_datetime) {
 	$status_area.append($news_indicator);
 }
-if ($news_indicator.text().includes("Bubblegum")) {
+*/
+const $news_indicator = null; // Placeholder to avoid undefined errors
+if ($news_indicator && $news_indicator.text().includes("Bubblegum")) {
 	let bubbles_raf_id = -1;
 	const bubbles = [];
 	const make_bubble = () => {

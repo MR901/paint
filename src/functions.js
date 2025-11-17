@@ -1594,9 +1594,10 @@ function show_about_paint() {
 		});
 	});
 
-	$("#view-project-news").on("click", () => {
-		show_news();
-	});//.focus();
+	// Project news button removed in fork
+	// $("#view-project-news").on("click", () => {
+	// 	show_news();
+	// });//.focus();
 
 	// Hack to avoid mis-centering within small screens,
 	// due to dynamic width of window when it abuts the right side of the screen
