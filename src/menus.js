@@ -399,7 +399,7 @@ const menus = {
 				toggle: () => {
 					$toolbox.toggle();
 				},
-				check: () => $toolbox.is(":visible"),
+				check: () => $toolbox ? $toolbox.is(":visible") : true,
 			},
 			description: localize("Shows or hides the tool box."),
 		},
@@ -414,7 +414,7 @@ const menus = {
 				toggle: () => {
 					$colorbox.toggle();
 				},
-				check: () => $colorbox.is(":visible"),
+				check: () => $colorbox ? $colorbox.is(":visible") : true,
 			},
 			description: localize("Shows or hides the color box."),
 		},
@@ -428,7 +428,7 @@ const menus = {
 				toggle: () => {
 					$status_area.toggle();
 				},
-				check: () => $status_area.is(":visible"),
+				check: () => $status_area ? $status_area.is(":visible") : true,
 			},
 			description: localize("Shows or hides the status bar."),
 		},
