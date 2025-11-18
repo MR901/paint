@@ -397,9 +397,11 @@ const menus = {
 			],
 			checkbox: {
 				toggle: () => {
-					$toolbox.toggle();
+					if (window.$toolbox) {
+						window.$toolbox.toggle();
+					}
 				},
-				check: () => $toolbox ? $toolbox.is(":visible") : true,
+				check: () => window.$toolbox ? window.$toolbox.is(":visible") : true,
 			},
 			description: localize("Shows or hides the tool box."),
 		},
@@ -412,9 +414,11 @@ const menus = {
 			],
 			checkbox: {
 				toggle: () => {
-					$colorbox.toggle();
+					if (window.$colorbox) {
+						window.$colorbox.toggle();
+					}
 				},
-				check: () => $colorbox ? $colorbox.is(":visible") : true,
+				check: () => window.$colorbox ? window.$colorbox.is(":visible") : true,
 			},
 			description: localize("Shows or hides the color box."),
 		},
@@ -724,7 +728,9 @@ const menus = {
 						show_file_format_errors({ as_palette_error: error });
 					} else {
 						palette = new_palette.map((color) => color.toString());
-						$colorbox.rebuild_palette();
+						if (window.$colorbox) {
+							window.$colorbox.rebuild_palette();
+						}
 						window.console?.log(`Loaded palette: ${palette.map(() => "%c█").join("")}`, ...palette.map((color) => `color: ${color};`));
 					}
 				});
