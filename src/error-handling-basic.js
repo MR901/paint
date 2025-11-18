@@ -53,7 +53,7 @@ if (isIE) {
 		"	</p>" +
 		"	<hr>" +
 		"	<p>" +
-		'		<a href="index.html">Go to JS Paint</a>' +
+		'		<a href="about.html">More about JS Paint</a>' +
 		"	</p>" +
 		"</div>";
 	// Wait for body to exist.

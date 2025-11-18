@@ -8,8 +8,7 @@
 		"entertainment"
 	],
 	"display": "standalone",
-	"start_url": "/tools/paint/",
-	"scope": "/tools/paint/",
+	"start_url": ".",
 	"lang": "en-US",
 	"theme_color": "#000080",
 	"background_color": "#7b7b7b",

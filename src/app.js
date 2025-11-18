@@ -9,7 +9,7 @@ import { Handles } from "./Handles.js";
 // import { get_direction, localize } from "./app-localization.js";
 import { default_palette, get_winter_palette } from "./color-data.js";
 import { image_formats } from "./file-format-data.js";
-import { $this_version_news, cancel, change_some_url_params, change_url_param, clear, confirm_overwrite_capability, delete_selection, deselect, edit_copy, edit_cut, edit_paste, file_new, file_open, file_save, file_save_as, get_tool_by_id, get_uris, image_attributes, image_flip_and_rotate, image_invert_colors, image_stretch_and_skew, load_image_from_uri, make_or_update_undoable, open_from_file, paste, paste_image_from_file, redo, render_history_as_gif, reset_canvas_and_history, reset_file, reset_selected_colors, resize_canvas_and_save_dimensions, resize_canvas_without_saving_dimensions, save_as_prompt, select_all, select_tool, select_tools, set_magnification, show_document_history, show_error_message, show_resource_load_error_message, toggle_grid, undo, update_canvas_rect, update_disable_aa, update_helper_layer, update_magnified_canvas_size, view_bitmap, write_image_file } from "./functions.js";
+import { $this_version_news, cancel, change_some_url_params, change_url_param, clear, confirm_overwrite_capability, delete_selection, deselect, edit_copy, edit_cut, edit_paste, file_new, file_open, file_save, file_save_as, get_tool_by_id, get_uris, image_attributes, image_flip_and_rotate, image_invert_colors, image_stretch_and_skew, load_image_from_uri, make_or_update_undoable, open_from_file, paste, paste_image_from_file, redo, render_history_as_gif, reset_canvas_and_history, reset_file, reset_selected_colors, resize_canvas_and_save_dimensions, resize_canvas_without_saving_dimensions, save_as_prompt, select_all, select_tool, select_tools, set_magnification, show_document_history, show_error_message, show_news, show_resource_load_error_message, toggle_grid, undo, update_canvas_rect, update_disable_aa, update_helper_layer, update_magnified_canvas_size, view_bitmap, write_image_file } from "./functions.js";
 import { show_help } from "./help.js";
 import { $G, E, TAU, get_file_extension, get_help_folder_icon, is_discord_embed, make_canvas, to_canvas_coords } from "./helpers.js";
 import { init_webgl_stuff, rotate } from "./image-manipulation.js";
@@ -437,12 +437,11 @@ const update_from_url_params = () => {
 	// but I'm not sure how it should work with the back button.
 	// It's probably nice on mobile for the back button to close windows,
 	// but I'd want it to be consistent between all the windows of the app.
-	// Project news feature removed in fork
-	// if (location.hash.match(/force-open-project-news/i)) {
-	// 	if (!$(".news-window:visible").length) {
-	// 		show_news();
-	// 	}
-	// }
+	if (location.hash.match(/force-open-project-news/i)) {
+		if (!$(".news-window:visible").length) {
+			show_news();
+		}
+	}
 };
 update_from_url_params();
 $G.on("hashchange popstate change-url-params", update_from_url_params);
@@ -527,9 +526,52 @@ window.$status_position = $status_position;
 const $status_size = $(E("div")).addClass("status-coordinates status-field inset-shallow").appendTo($status_area);
 window.$status_size = $status_size;
 
-// #region News Indicator (disabled in MR901 fork)
-const $news_indicator = null; // Project news indicator disabled in this fork
-if ($news_indicator && $news_indicator.text().includes("Bubblegum")) {
+// #region News Indicator
+const news_seen_key = "jspaint latest news seen";
+const latest_news_datetime = $this_version_news.find("time").attr("datetime");
+const $news_indicator = $(`
+	<a class="news-indicator" href="#project-news">
+		<img src="images/winter/present.png" width="24" height="22" alt=""/>
+		<!--<img src="images/about/news.gif" width="40" height="16" alt=""/>-->
+		<!--<img src="images/new.gif" width="40" height="16" alt=""/>-->
+		<span class="marquee" dir="ltr" style="--text-width: 69ch; --animation-duration: 3s;">
+			<span>
+				Discord server, Head Tracker, Quick Undo Button, Enlarge UI, and Dwell Clicker
+			</span>
+		</span>
+		<!--<span class="marquee" dir="ltr" style="--text-width: 44ch; --animation-duration: 3s;">
+			<span>
+				<b>Cool new things</b> — One thing! Another thing! Something else!
+			</span>
+		</span>
+		<span>
+			<b>Just One Thing</b>
+		</span>-->
+	</a>
+`);
+$news_indicator.on("click auxclick", (event) => {
+	event.preventDefault();
+	show_news();
+	$news_indicator.remove();
+	try {
+		localStorage[news_seen_key] = latest_news_datetime;
+	} catch (_error) { /* ignore */ }
+});
+let news_seen;
+let local_storage_unavailable;
+try {
+	news_seen = localStorage[news_seen_key];
+} catch (_error) {
+	local_storage_unavailable = true;
+}
+const day = 24 * 60 * 60 * 1000;
+const news_period_if_can_dismiss = 15 * day;
+const news_period_if_cannot_dismiss = 5 * day;
+const news_period = local_storage_unavailable ? news_period_if_cannot_dismiss : news_period_if_can_dismiss;
+if (Date.now() < Date.parse(latest_news_datetime) + news_period && news_seen !== latest_news_datetime) {
+	$status_area.append($news_indicator);
+}
+if ($news_indicator.text().includes("Bubblegum")) {
 	let bubbles_raf_id = -1;
 	const bubbles = [];
 	const make_bubble = () => {

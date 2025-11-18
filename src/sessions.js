@@ -91,23 +91,14 @@ function show_recovery_window(no_longer_blank) {
 }
 
 let last_undos_length = undos.length;
-let initial_save_count = 0; // Track initial saves to avoid false positives
 function handle_data_loss() {
 	const window_is_open = $recovery_window && !$recovery_window.closed;
 	let save_paused = false;
-	
-	// Skip the check during initial saves to avoid false positives on blank/transparent canvases
-	if (initial_save_count < 3) {
-		initial_save_count++;
-		return false;
-	}
-	
 	if (!canvas_has_any_apparent_image_data()) {
-		// Only show recovery window if there's actual history (meaning content was lost)
-		if (!window_is_open && undos.length > 0) {
+		if (!window_is_open) {
 			show_recovery_window();
 		}
-		save_paused = undos.length > 0; // Only pause if there's history
+		save_paused = true;
 	} else if (window_is_open) {
 		if (undos.length > last_undos_length) {
 			show_recovery_window(true);

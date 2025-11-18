@@ -4,7 +4,7 @@
 // import { available_languages, get_iso_language_name, get_language, get_language_emoji, get_language_endonym, localize, set_language } from "./app-localization.js";
 import { show_edit_colors_window } from "./edit-colors.js";
 import { palette_formats } from "./file-format-data.js";
-import { are_you_sure, change_url_param, choose_file_to_paste, clear, delete_selection, deselect, edit_copy, edit_cut, edit_paste, file_load_from_url, file_new, file_open, file_print, file_save, file_save_as, image_attributes, image_flip_and_rotate, image_invert_colors, image_stretch_and_skew, redo, render_history_as_gif, sanity_check_blob, save_selection_to_file, select_all, set_magnification, show_about_paint, show_custom_zoom_window, show_document_history, show_file_format_errors, show_multi_user_setup_dialog, toggle_grid, toggle_thumbnail, undo, view_bitmap } from "./functions.js";
+import { are_you_sure, change_url_param, choose_file_to_paste, clear, delete_selection, deselect, edit_copy, edit_cut, edit_paste, file_load_from_url, file_new, file_open, file_print, file_save, file_save_as, image_attributes, image_flip_and_rotate, image_invert_colors, image_stretch_and_skew, redo, render_history_as_gif, sanity_check_blob, save_selection_to_file, select_all, set_magnification, show_about_paint, show_custom_zoom_window, show_document_history, show_file_format_errors, show_multi_user_setup_dialog, show_news, toggle_grid, toggle_thumbnail, undo, view_bitmap } from "./functions.js";
 import { show_help } from "./help.js";
 import { $G, get_rgba_from_color, is_discord_embed } from "./helpers.js";
 import { show_imgur_uploader } from "./imgur.js";
@@ -397,11 +397,9 @@ const menus = {
 			],
 			checkbox: {
 				toggle: () => {
-					if (window.$toolbox) {
-						window.$toolbox.toggle();
-					}
+					$toolbox.toggle();
 				},
-				check: () => window.$toolbox ? window.$toolbox.is(":visible") : true,
+				check: () => $toolbox.is(":visible"),
 			},
 			description: localize("Shows or hides the tool box."),
 		},
@@ -414,11 +412,9 @@ const menus = {
 			],
 			checkbox: {
 				toggle: () => {
-					if (window.$colorbox) {
-						window.$colorbox.toggle();
-					}
+					$colorbox.toggle();
 				},
-				check: () => window.$colorbox ? window.$colorbox.is(":visible") : true,
+				check: () => $colorbox.is(":visible"),
 			},
 			description: localize("Shows or hides the color box."),
 		},
@@ -432,7 +428,7 @@ const menus = {
 				toggle: () => {
 					$status_area.toggle();
 				},
-				check: () => $status_area ? $status_area.is(":visible") : true,
+				check: () => $status_area.is(":visible"),
 			},
 			description: localize("Shows or hides the status bar."),
 		},
@@ -728,9 +724,7 @@ const menus = {
 						show_file_format_errors({ as_palette_error: error });
 					} else {
 						palette = new_palette.map((color) => color.toString());
-						if (window.$colorbox) {
-							window.$colorbox.rebuild_palette();
-						}
+						$colorbox.rebuild_palette();
 						window.console?.log(`Loaded palette: ${palette.map(() => "%c█").join("")}`, ...palette.map((color) => `color: ${color};`));
 					}
 				});
@@ -1358,6 +1352,49 @@ const menus = {
 			],
 			action: () => { manage_storage(); },
 			description: localize("Manages storage of previously created or opened pictures."),
+		},
+		MENU_DIVIDER,
+		{
+			emoji_icon: "📢",
+			label: localize("Project News"),
+			speech_recognition: [
+				"project news", "news about the project", "news about this project",
+				"app news", "news about the app", "news about this app",
+				"application news", "news about the application", "news about this application",
+				"what's new", "new features",
+				"show news", "show news update", "news update",
+			],
+			action: () => { show_news(); },
+			description: localize("Shows news about JS Paint."),
+		},
+		{
+			emoji_icon: "👾", // "👋",
+			label: localize("Discord"),
+			speech_recognition: [
+				"chat on discord", "discord server", "discord community", "join the discord", "join discord", "visit the discord", "visit discord", "discord chat",
+			],
+			action: () => {
+				window.open("https://discord.gg/jxQBK3k8tx");
+			},
+			description: localize("Joins the community on Discord."),
+		},
+		{
+			emoji_icon: "ℹ️",
+			label: localize("GitHub"),
+			speech_recognition: [
+				"repo on github", "project on github", "show the source code", "show source code",
+			],
+			action: () => { window.open("https://github.com/1j01/jspaint"); },
+			description: localize("Shows the project on GitHub."),
+		},
+		{
+			emoji_icon: "💵",
+			label: localize("Donate"),
+			speech_recognition: [
+				"donate", "make a monetary contribution",
+			],
+			action: () => { window.open("https://www.paypal.me/IsaiahOdhner"); },
+			description: localize("Supports the project."),
 		},
 	],
 };
