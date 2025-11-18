@@ -1739,54 +1739,9 @@ function update_css_classes_for_conditional_messages() {
 	}
 }
 
-function show_news() {
-	if ($news_window) {
-		$news_window.close();
-	}
-	$news_window = $Window({
-		title: "Project News",
-		maximizeButton: false,
-		minimizeButton: false,
-		resizable: false,
-	});
-	$news_window.addClass("news-window squish");
-
-
-	// const $latest_entries = $latest_news.find(".news-entry");
-	// const latest_entry = $latest_entries[$latest_entries.length - 1];
-	// window.console?.log("LATEST MEWS:", $latest_news);
-	// window.console?.log("LATEST ENTRY:", latest_entry);
-
-	const $latest_news_style = $latest_news.find("style");
-	$this_version_news.find("style").remove();
-	$latest_news.append($latest_news_style); // in case $this_version_news is $latest_news
-
-	$news_window.$content.append($latest_news.removeAttr("hidden"));
-
-	$news_window.center();
-	$news_window.center(); // @XXX - but it helps tho
-
-	$latest_news.attr("tabIndex", "-1").focus();
-
-	// Prevent opening images dropped on news window
-	// especially those dragged from the news window itself (accidentally or habitually/idly)
-	// TODO: should this be for all windows?
-	$news_window.on("dragover", (event) => {
-		// the default behavior is to not allow dropping,
-		// so don't prevent the default, but do stop propagation
-		// so that the global handler doesn't allow the drop
-		event.stopPropagation();
-	});
-	$news_window.on("dragenter", (event) => {
-		// same as dragover, but just prevents flickering of the cursor basically,
-		// when dragover is already handled
-		event.stopPropagation();
-	});
-	$news_window.on("drop", (event) => {
-		event.preventDefault();
-		event.stopPropagation();
-	});
-}
+// Note: show_news is kept for API compatibility,
+// but all visible entry points are disabled in this fork.
+function show_news() {}
 
 
 // @TODO: DRY between these functions and open_from_* functions further?

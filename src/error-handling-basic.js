@@ -51,11 +51,11 @@ if (isIE) {
 		"		or " +
 		'		<a href="https://www.microsoft.com/edge/">Edge</a>.' +
 		"	</p>" +
-	"	<hr>" +
-	"	<p>" +
-	'		<a href="index.html">Go to JS Paint</a>' +
-	"	</p>" +
-	"</div>";
+		"	<hr>" +
+		"	<p>" +
+		'		<a href="index.html">Go to JS Paint</a>' +
+		"	</p>" +
+		"</div>";
 	// Wait for body to exist.
 	var interval = setInterval(function () {
 		if (document.body) {
